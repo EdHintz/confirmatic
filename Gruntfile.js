@@ -35,7 +35,7 @@ module.exports = function (grunt) {
 
 		mochaIstanbul : {
 			coverage : {
-				src     : "test",
+				src     : "test/specs",
 				options : {
 					check : {
 						statements : 100,

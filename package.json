@@ -8,6 +8,6 @@
   },
   "scripts": {
     "test": "grunt",
-    "start": "node server.js"
+    "start": "node lib/server.js"
   }
 }
