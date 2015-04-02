@@ -6,5 +6,8 @@
     "type": "git",
     "url": "https://github.com/EdHintz/confirmatic.git"
   },
-  "scripts": {"test": "grunt"}
+  "scripts": {
+    "test": "grunt",
+    "start": "node server.js"
+  }
 }
