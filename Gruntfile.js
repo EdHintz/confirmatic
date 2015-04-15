@@ -36,6 +36,7 @@ module.exports = function (grunt) {
 		mochaIstanbul : {
 			coverage : {
 				src     : "test/specs",
+				mask    : "**/*_spec.js",
 				options : {
 					check : {
 						statements : 100,

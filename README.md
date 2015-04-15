@@ -35,8 +35,6 @@ In order to receive SMS replies, Confirmatic needs to be reachable by the Bandwi
 
 ###Heroku
     $ git clone https://github.com/EdHintz/confirmatic.git
-    $ git init
-    $ git add -A
     $ heroku create
     $ git push heroku master
     $ heroku config:set BW_USER_ID='u-your_user_id_found_in_account_tab'
