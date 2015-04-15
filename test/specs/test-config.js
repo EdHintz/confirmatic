@@ -1,28 +1,37 @@
 "use strict";
 
-var expect = require("chai").expect;
-var config = require("../../lib/config");
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
+var expect = chai.expect;
+
+chai.use(chaiAsPromised);
+
+var Config = require("../../lib/config");
 
 describe("test config", function () {
 	describe("config validate should succeed", function () {
 		it("Should validate config assuming environment variables are properly set", function () {
-			expect(config.validate()).to.equal(true);
+			var config = new Config();
+			expect(config.validate()).to.eventually.be.fulfilled;
 		});
 	});
 
 	describe("config validate should fail", function () {
-		var previousBandwidthUserId = config.bandwidth.userId;
+		var config;
+		var previousBandwidthUserId;
 
 		beforeEach(function () {
-			config.bandwidth.userId = "";
+			previousBandwidthUserId = process.env.BW_USER_ID;
+			process.env.BW_USER_ID = "";
+			config = new Config();
 		});
 
 		afterEach(function () {
-			config.bandwidth.userId = previousBandwidthUserId;
+			process.env.BW_USER_ID = previousBandwidthUserId;
 		});
 
 		it("Should fail validation because userId is not set", function () {
-			expect(config.validate()).to.equal(false);
+			expect(config.validate()).to.eventually.be.rejected;
 		});
 	});
 });
