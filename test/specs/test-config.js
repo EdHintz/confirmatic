@@ -1,10 +1,7 @@
 "use strict";
 
 var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
 var expect = chai.expect;
-
-chai.use(chaiAsPromised);
 
 var Config = require("../../lib/config");
 
@@ -12,7 +9,8 @@ describe("test config", function () {
 	describe("config validate should succeed", function () {
 		it("Should validate config assuming environment variables are properly set", function () {
 			var config = new Config();
-			expect(config.validate()).to.eventually.be.fulfilled;
+			var validation = config.validate();
+			expect(validation.error).to.be.null;
 		});
 	});
 
@@ -31,7 +29,20 @@ describe("test config", function () {
 		});
 
 		it("Should fail validation because userId is not set", function () {
-			expect(config.validate()).to.eventually.be.rejected;
+			var config = new Config();
+			var validation = config.validate();
+			expect(validation.error).to.exist;
+		});
+	});
+
+	describe("config values are read-only", function () {
+		var config = new Config();
+
+		it("should throw changing config value", function () {
+			var setUserId = function () {
+				config.settings.bandwidth.userId = "Neo";
+			};
+			expect(setUserId).to.throw(TypeError);
 		});
 	});
 });
